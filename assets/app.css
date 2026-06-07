@@ -414,13 +414,24 @@ textarea {
   background: #eef8f4;
 }
 
-.lab4-hero {
+.lab4-hero,
+.lab5-hero {
   min-height: auto;
   padding-top: 54px;
 }
 
-.lab4-assumption {
+.lab4-assumption,
+.lab5-assumption {
   align-self: stretch;
+}
+
+.lab5-note-list {
+  padding-left: 22px;
+  margin-bottom: 0;
+}
+
+.lab5-note-list li + li {
+  margin-top: 8px;
 }
 
 .task-grid {
