@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyTask - головна сторінка WEB-застосунку</title>
+    <meta name="description" content="Головна сторінка WEB-застосунку StudyTask для планування навчальних завдань студента.">
+    <link rel="stylesheet" href="assets/app.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="StudyTask, головна сторінка">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span>
+          <strong>StudyTask</strong>
+          <span>навчальний планувальник</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Основна навігація">
+        <a href="#schedule">Розклад</a>
+        <a href="#features">Можливості</a>
+        <a href="#request">Додати завдання</a>
+        <a href="business-logic.html">Бізнес-логіка</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <h1 id="hero-title">Планування навчальних завдань без втрати дедлайнів</h1>
+          <p class="lead">
+            StudyTask допомагає студенту бачити активні дисципліни, дедлайни, пріоритети та етапи виконання лабораторних робіт в одному інтерфейсі.
+          </p>
+          <div class="actions" aria-label="Основні дії">
+            <a class="button" href="#request">Додати завдання</a>
+            <a class="button secondary" href="business-logic.html">Переглянути логіку</a>
+          </div>
+        </div>
+        <figure class="hero-media">
+          <img src="assets/study-dashboard.svg" alt="Ілюстрація панелі StudyTask з курсами, дедлайнами і планом занять" width="960" height="560">
+          <figcaption>Приклад майбутньої панелі контролю навчального навантаження.</figcaption>
+        </figure>
+      </section>
+
+      <section class="status-grid" aria-label="Короткий стан навчального тижня">
+        <article class="status-card">
+          <h3>4 активні дисципліни</h3>
+          <p>HTML, CSS, JavaScript та UX-проєктування мають відкриті задачі цього тижня.</p>
+        </article>
+        <article class="status-card">
+          <h3>2 критичні дедлайни</h3>
+          <p>Система виділяє завдання з найближчою датою здачі та високим пріоритетом.</p>
+        </article>
+        <article class="status-card">
+          <h3>78% плану виконано</h3>
+          <p>Прогрес розраховується за кількістю завершених підзадач у межах тижня.</p>
+        </article>
+      </section>
+
+      <div class="content-grid">
+        <section id="schedule" class="panel" aria-labelledby="schedule-title">
+          <h2 id="schedule-title">Таблиця навчальних завдань</h2>
+          <p>
+            Таблиця демонструє базову структуру майбутнього застосунку: дисципліна, завдання, дедлайн, статус і пріоритет.
+          </p>
+          <table class="schedule-table">
+            <caption>Поточний навчальний тиждень студента</caption>
+            <thead>
+              <tr>
+                <th scope="col">Дисципліна</th>
+                <th scope="col">Завдання</th>
+                <th scope="col">Дедлайн</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Пріоритет</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Основи клієнтських розробок</td>
+                <td>ЛР №1: семантична HTML-сторінка</td>
+                <td><time datetime="2026-06-10">10.06.2026</time></td>
+                <td><span class="tag hot">у роботі</span></td>
+                <td>Високий</td>
+              </tr>
+              <tr>
+                <td>Проєктування інтерфейсів</td>
+                <td>Ескіз головної сторінки</td>
+                <td><time datetime="2026-06-13">13.06.2026</time></td>
+                <td><span class="tag wait">очікує</span></td>
+                <td>Середній</td>
+              </tr>
+              <tr>
+                <td>JavaScript</td>
+                <td>Повторення функцій та об'єктів</td>
+                <td><time datetime="2026-06-15">15.06.2026</time></td>
+                <td><span class="tag">заплановано</span></td>
+                <td>Середній</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <aside class="panel" aria-labelledby="project-note">
+          <h2 id="project-note">Предметна область</h2>
+          <p>
+            Обрана предметна область - організація особистого навчального процесу студента за дисциплінами, дедлайнами та пріоритетами.
+          </p>
+          <ul class="note-list">
+            <li>користувач створює навчальні задачі;</li>
+            <li>задачі групуються за дисциплінами;</li>
+            <li>статус і дедлайн допомагають керувати пріоритетами.</li>
+          </ul>
+        </aside>
+      </div>
+
+      <section id="features" class="panel" aria-labelledby="features-title">
+        <h2 id="features-title">Списки можливостей і сценарій роботи</h2>
+        <div class="list-columns">
+          <article>
+            <h3>Функції застосунку</h3>
+            <ul>
+              <li>додавання навчальних завдань;</li>
+              <li>перегляд таблиці дедлайнів;</li>
+              <li>фільтрація задач за дисципліною та статусом;</li>
+              <li>перегляд опису бізнес-логіки на окремій сторінці.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Базовий сценарій</h3>
+            <ol>
+              <li>студент відкриває панель StudyTask;</li>
+              <li>переглядає актуальні дедлайни;</li>
+              <li>додає нове завдання через форму;</li>
+              <li>оновлює статус після виконання роботи.</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section id="request" class="panel" aria-labelledby="request-title">
+        <h2 id="request-title">Форма додавання навчального завдання</h2>
+        <form class="task-form" action="#" method="post">
+          <div class="form-row">
+            <label for="course">Дисципліна</label>
+            <input id="course" name="course" type="text" placeholder="Наприклад: Основи клієнтських розробок" required>
+          </div>
+
+          <div class="form-row">
+            <label for="task">Назва завдання</label>
+            <input id="task" name="task" type="text" placeholder="Наприклад: ЛР №1" required>
+          </div>
+
+          <div class="form-row">
+            <label for="deadline">Дедлайн</label>
+            <input id="deadline" name="deadline" type="date" required>
+          </div>
+
+          <div class="form-row">
+            <label for="priority">Пріоритет</label>
+            <select id="priority" name="priority">
+              <option value="high">Високий</option>
+              <option value="medium">Середній</option>
+              <option value="low">Низький</option>
+            </select>
+          </div>
+
+          <fieldset>
+            <legend>Додаткові параметри</legend>
+            <label class="checkbox" for="reminder">
+              <input id="reminder" name="reminder" type="checkbox" value="yes">
+              Нагадати за день до дедлайну
+            </label>
+          </fieldset>
+
+          <div class="form-row">
+            <label for="comment">Коментар</label>
+            <textarea id="comment" name="comment" placeholder="Короткий опис вимог до завдання"></textarea>
+          </div>
+
+          <button type="submit">Зберегти завдання</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Лабораторна робота №1. Виконав: Єрещенко М.О., група ІП-зп51.</p>
+    </footer>
+  </body>
+</html>

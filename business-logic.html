@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyTask - бізнес-логіка</title>
+    <meta name="description" content="Опис предметної області, бізнес-логіки та вимог WEB-застосунку StudyTask.">
+    <link rel="stylesheet" href="assets/app.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="StudyTask, головна сторінка">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span>
+          <strong>StudyTask</strong>
+          <span>бізнес-логіка</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Основна навігація">
+        <a href="index.html">Головна</a>
+        <a href="index.html#schedule">Розклад</a>
+        <a href="index.html#request">Форма</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel" aria-labelledby="logic-title">
+        <h1 id="logic-title">Опис бізнес-логіки WEB-застосунку StudyTask</h1>
+        <p>
+          StudyTask - це навчальний WEB-застосунок для індивідуального планування завдань студента. Система зберігає перелік дисциплін, лабораторних робіт, дедлайнів, пріоритетів і статусів виконання.
+        </p>
+      </section>
+
+      <section class="panel" aria-labelledby="domain-title">
+        <h2 id="domain-title">Предметне середовище</h2>
+        <p>
+          Предметною областю є організація навчальної діяльності студента протягом семестру. Основними сутностями є студент, дисципліна, навчальне завдання, дедлайн, статус виконання та нагадування.
+        </p>
+        <p>
+          Користувач працює із завданнями: створює їх, задає дату виконання, визначає пріоритет, переглядає список поточних робіт і змінює статус після завершення.
+        </p>
+      </section>
+
+      <section class="panel" aria-labelledby="process-title">
+        <h2 id="process-title">Бізнес-процес</h2>
+        <ol>
+          <li>Студент додає дисципліну або вибирає її зі списку.</li>
+          <li>Студент створює навчальне завдання з назвою, дедлайном і пріоритетом.</li>
+          <li>Система показує завдання у таблиці та виділяє найближчі дедлайни.</li>
+          <li>Студент переглядає список задач на тиждень і позначає виконані роботи.</li>
+          <li>Система оновлює прогрес виконання навчального плану.</li>
+        </ol>
+      </section>
+
+      <section class="panel" aria-labelledby="requirements-title">
+        <h2 id="requirements-title">Вимоги до системи</h2>
+        <div class="list-columns">
+          <article>
+            <h3>Функціональні вимоги</h3>
+            <ul>
+              <li>додавати нове навчальне завдання через форму;</li>
+              <li>відображати перелік завдань у таблиці;</li>
+              <li>зберігати назву дисципліни, дедлайн, статус і пріоритет;</li>
+              <li>давати користувачу змогу переглядати опис бізнес-логіки;</li>
+              <li>показувати коротку статистику активних завдань.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Нефункціональні вимоги</h3>
+            <ul>
+              <li>інтерфейс має коректно працювати на мобільних і настільних екранах;</li>
+              <li>сторінки повинні мати семантичну HTML-структуру;</li>
+              <li>елементи форми мають бути доступними через підписи label;</li>
+              <li>час завантаження сторінки має бути мінімальним;</li>
+              <li>дані користувача мають оброблятися без зайвого розкриття персональної інформації.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Лабораторна робота №1. Виконав: Єрещенко М.О., група ІП-зп51.</p>
+    </footer>
+  </body>
+</html>

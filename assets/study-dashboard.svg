@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Макет панелі StudyTask</title>
+  <desc id="desc">Схематичне зображення веб-панелі з навчальними завданнями, розкладом і пріоритетами.</desc>
+  <rect width="960" height="560" fill="#f7faf9"/>
+  <rect x="40" y="36" width="880" height="488" rx="26" fill="#ffffff" stroke="#d7e2de" stroke-width="2"/>
+  <rect x="72" y="72" width="816" height="76" rx="16" fill="#24433c"/>
+  <text x="104" y="119" fill="#ffffff" font-family="Arial, sans-serif" font-size="30" font-weight="700">StudyTask</text>
+  <text x="723" y="117" fill="#d6ebe5" font-family="Arial, sans-serif" font-size="18">Тиждень 12</text>
+  <rect x="72" y="180" width="232" height="120" rx="14" fill="#eef8f4" stroke="#b9d9cf"/>
+  <text x="96" y="222" fill="#1d332e" font-family="Arial, sans-serif" font-size="22" font-weight="700">4 активні курси</text>
+  <text x="96" y="257" fill="#4d6760" font-family="Arial, sans-serif" font-size="17">HTML, CSS, JS, UX</text>
+  <rect x="334" y="180" width="252" height="120" rx="14" fill="#fff4e8" stroke="#f1c99b"/>
+  <text x="358" y="222" fill="#3a2b1d" font-family="Arial, sans-serif" font-size="22" font-weight="700">2 дедлайни</text>
+  <text x="358" y="257" fill="#765636" font-family="Arial, sans-serif" font-size="17">ЛР та контрольна</text>
+  <rect x="616" y="180" width="272" height="120" rx="14" fill="#eef3ff" stroke="#c3d1f2"/>
+  <text x="640" y="222" fill="#263452" font-family="Arial, sans-serif" font-size="22" font-weight="700">78% виконано</text>
+  <rect x="640" y="246" width="188" height="12" rx="6" fill="#d5def5"/>
+  <rect x="640" y="246" width="147" height="12" rx="6" fill="#4c6fdc"/>
+  <rect x="72" y="332" width="520" height="152" rx="16" fill="#ffffff" stroke="#d7e2de"/>
+  <text x="96" y="374" fill="#1d332e" font-family="Arial, sans-serif" font-size="22" font-weight="700">План занять</text>
+  <line x1="96" y1="398" x2="568" y2="398" stroke="#d7e2de" stroke-width="2"/>
+  <circle cx="111" cy="430" r="8" fill="#21a67a"/>
+  <text x="132" y="436" fill="#31433f" font-family="Arial, sans-serif" font-size="17">Підготувати HTML-сторінку</text>
+  <circle cx="111" cy="464" r="8" fill="#f1a33b"/>
+  <text x="132" y="470" fill="#31433f" font-family="Arial, sans-serif" font-size="17">Описати бізнес-логіку</text>
+  <rect x="624" y="332" width="264" height="152" rx="16" fill="#24433c"/>
+  <text x="648" y="374" fill="#ffffff" font-family="Arial, sans-serif" font-size="22" font-weight="700">Пріоритет</text>
+  <text x="648" y="414" fill="#d6ebe5" font-family="Arial, sans-serif" font-size="17">1. Лабораторна робота</text>
+  <text x="648" y="447" fill="#d6ebe5" font-family="Arial, sans-serif" font-size="17">2. Повторення теорії</text>
+</svg>
