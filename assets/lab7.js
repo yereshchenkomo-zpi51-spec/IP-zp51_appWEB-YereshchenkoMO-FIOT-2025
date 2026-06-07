@@ -8,14 +8,14 @@
   };
 
   const products = [
-    { id: "notebook", title: "Навчальний блокнот", price: 180, category: "Організація" },
-    { id: "planner", title: "Планер дедлайнів", price: 260, category: "Планування" },
-    { id: "markers", title: "Набір маркерів", price: 140, category: "Канцелярія" },
-    { id: "course-card", title: "Картка курсу", price: 90, category: "Матеріали" },
-    { id: "flashcards", title: "Flashcards для JS", price: 210, category: "JavaScript" },
-    { id: "timer", title: "Картка таймера", price: 120, category: "Асинхронність" },
-    { id: "storage-guide", title: "Web Storage guide", price: 240, category: "Web API" },
-    { id: "api-map", title: "REST API map", price: 300, category: "HTTP" },
+    { id: "notebook", title: "Навчальний блокнот", price: 180, category: "Організація", label: "Notes", accent: "#17775e", scene: "notebook" },
+    { id: "planner", title: "Планер дедлайнів", price: 260, category: "Планування", label: "Plan", accent: "#d66b3d", scene: "planner" },
+    { id: "markers", title: "Набір маркерів", price: 140, category: "Канцелярія", label: "Markers", accent: "#3d77e8", scene: "markers" },
+    { id: "course-card", title: "Картка курсу", price: 90, category: "Матеріали", label: "Course", accent: "#7b5cdb", scene: "card" },
+    { id: "flashcards", title: "Flashcards для JS", price: 210, category: "JavaScript", label: "JS", accent: "#f0a500", scene: "flashcards" },
+    { id: "timer", title: "Картка таймера", price: 120, category: "Асинхронність", label: "Timer", accent: "#24433c", scene: "timer" },
+    { id: "storage-guide", title: "Web Storage guide", price: 240, category: "Web API", label: "Storage", accent: "#17775e", scene: "storage" },
+    { id: "api-map", title: "REST API map", price: 300, category: "HTTP", label: "API", accent: "#3d77e8", scene: "api" },
   ];
 
   const productState = {
@@ -36,30 +36,45 @@
   let timerId = null;
   let searchLightbox = null;
 
-  function svgDataUri(title, accent, text) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620"><rect width="960" height="620" fill="#f7fbf9"/><rect x="52" y="52" width="856" height="516" rx="28" fill="${accent}"/><circle cx="800" cy="148" r="62" fill="#ffffff" opacity="0.28"/><path d="M120 430 C250 310 330 360 430 250 C540 130 662 300 820 178 L820 500 L120 500 Z" fill="#ffffff" opacity="0.35"/><text x="100" y="150" fill="#ffffff" font-family="Arial, sans-serif" font-size="56" font-weight="700">${title}</text><text x="100" y="220" fill="#ffffff" font-family="Arial, sans-serif" font-size="28">${text}</text></svg>`;
+  function sceneSvg(scene, accent) {
+    const commonShadow = 'filter="drop-shadow(0 18px 18px rgba(10, 29, 24, 0.2))"';
+    const scenes = {
+      notebook: `<rect x="120" y="150" width="300" height="270" rx="24" fill="#ffffff" ${commonShadow}/><rect x="158" y="150" width="36" height="270" rx="18" fill="${accent}"/><path d="M230 226H356M230 284H340M230 342H372" stroke="#8eb6aa" stroke-width="18" stroke-linecap="round"/>`,
+      planner: `<rect x="128" y="156" width="320" height="248" rx="24" fill="#ffffff" ${commonShadow}/><rect x="128" y="156" width="320" height="72" rx="24" fill="${accent}"/><path d="M186 280h56v48h-56zM270 280h56v48h-56zM354 280h56v48h-56z" fill="#f2f7f5"/><path d="M190 142v56M386 142v56" stroke="#24433c" stroke-width="20" stroke-linecap="round"/>`,
+      markers: `<g ${commonShadow}><rect x="132" y="310" width="292" height="54" rx="27" fill="#ffffff"/><rect x="172" y="238" width="292" height="54" rx="27" fill="#ffffff"/><rect x="210" y="166" width="292" height="54" rx="27" fill="#ffffff"/></g><path d="M376 166h108M338 238h108M292 310h108" stroke="${accent}" stroke-width="54" stroke-linecap="round"/>`,
+      card: `<rect x="118" y="172" width="340" height="220" rx="28" fill="#ffffff" ${commonShadow}/><circle cx="208" cy="250" r="48" fill="${accent}" opacity="0.9"/><path d="M286 232h116M286 286h86" stroke="#8eb6aa" stroke-width="18" stroke-linecap="round"/>`,
+      flashcards: `<g ${commonShadow}><rect x="154" y="188" width="270" height="184" rx="24" fill="#ffffff" transform="rotate(-8 154 188)"/><rect x="214" y="166" width="270" height="184" rx="24" fill="#ffffff" transform="rotate(8 214 166)"/></g><text x="292" y="286" fill="${accent}" font-family="Arial, sans-serif" font-size="64" font-weight="700">JS</text>`,
+      timer: `<circle cx="288" cy="270" r="124" fill="#ffffff" ${commonShadow}/><path d="M288 270V198M288 270l62 42" stroke="${accent}" stroke-width="22" stroke-linecap="round"/><rect x="246" y="118" width="84" height="36" rx="18" fill="${accent}"/>`,
+      storage: `<rect x="126" y="176" width="340" height="216" rx="28" fill="#ffffff" ${commonShadow}/><path d="M178 244h236M178 298h236M178 352h160" stroke="#8eb6aa" stroke-width="18" stroke-linecap="round"/><path d="M408 176v216" stroke="${accent}" stroke-width="34"/>`,
+      api: `<g ${commonShadow}><rect x="120" y="176" width="132" height="132" rx="24" fill="#ffffff"/><rect x="340" y="176" width="132" height="132" rx="24" fill="#ffffff"/><rect x="230" y="332" width="132" height="132" rx="24" fill="#ffffff"/></g><path d="M252 242h88M318 300l-44 52M362 352l44-52" stroke="${accent}" stroke-width="20" stroke-linecap="round"/>`,
+    };
+    return scenes[scene] || scenes.notebook;
+  }
+
+  function svgDataUri(title, accent, text, scene = "storage") {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620"><defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f7fbf9"/><stop offset="1" stop-color="#e1eee9"/></linearGradient><radialGradient id="glow" cx="78%" cy="22%" r="42%"><stop stop-color="${accent}" stop-opacity="0.24"/><stop offset="1" stop-color="${accent}" stop-opacity="0"/></radialGradient></defs><rect width="960" height="620" fill="url(#bg)"/><rect width="960" height="620" fill="url(#glow)"/><rect x="52" y="52" width="856" height="516" rx="36" fill="${accent}"/><circle cx="794" cy="148" r="72" fill="#ffffff" opacity="0.22"/><path d="M520 520 C610 370 712 418 840 248 L840 520 Z" fill="#ffffff" opacity="0.22"/>${sceneSvg(scene, accent)}<text x="548" y="188" fill="#ffffff" font-family="Arial, sans-serif" font-size="62" font-weight="700">${title}</text><text x="552" y="254" fill="#ffffff" font-family="Arial, sans-serif" font-size="30">${text}</text></svg>`;
     return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
   }
 
   const images = [
     {
-      preview: svgDataUri("Storage", "#17775e", "localStorage state"),
-      original: svgDataUri("Storage", "#17775e", "localStorage state"),
+      preview: svgDataUri("Storage", "#17775e", "localStorage state", "storage"),
+      original: svgDataUri("Storage", "#17775e", "localStorage state", "storage"),
       description: "Дані форми у Web Storage",
     },
     {
-      preview: svgDataUri("Promise", "#d66b3d", "then catch finally"),
-      original: svgDataUri("Promise", "#d66b3d", "then catch finally"),
+      preview: svgDataUri("Promise", "#d66b3d", "then catch finally", "timer"),
+      original: svgDataUri("Promise", "#d66b3d", "then catch finally", "timer"),
       description: "Ланцюжок промісів",
     },
     {
-      preview: svgDataUri("REST API", "#24433c", "fetch JSON AJAX"),
-      original: svgDataUri("REST API", "#24433c", "fetch JSON AJAX"),
+      preview: svgDataUri("REST API", "#24433c", "fetch JSON AJAX", "api"),
+      original: svgDataUri("REST API", "#24433c", "fetch JSON AJAX", "api"),
       description: "HTTP-запит до REST API",
     },
     {
-      preview: svgDataUri("Pagination", "#3d77e8", "page by page"),
-      original: svgDataUri("Pagination", "#3d77e8", "page by page"),
+      preview: svgDataUri("Pagination", "#3d77e8", "page by page", "planner"),
+      original: svgDataUri("Pagination", "#3d77e8", "page by page", "planner"),
       description: "Пагінація списку елементів",
     },
   ];
@@ -67,8 +82,8 @@
   const mockPixabayHits = [
     {
       id: 101,
-      webformatURL: svgDataUri("Study", "#17775e", "dashboard"),
-      largeImageURL: svgDataUri("Study", "#17775e", "dashboard"),
+      webformatURL: svgDataUri("Study", "#17775e", "dashboard", "notebook"),
+      largeImageURL: svgDataUri("Study", "#17775e", "dashboard", "notebook"),
       tags: "study dashboard planning",
       likes: 42,
       views: 1200,
@@ -77,8 +92,8 @@
     },
     {
       id: 102,
-      webformatURL: svgDataUri("Code", "#24433c", "javascript"),
-      largeImageURL: svgDataUri("Code", "#24433c", "javascript"),
+      webformatURL: svgDataUri("Code", "#24433c", "javascript", "flashcards"),
+      largeImageURL: svgDataUri("Code", "#24433c", "javascript", "flashcards"),
       tags: "code javascript api",
       likes: 31,
       views: 980,
@@ -87,8 +102,8 @@
     },
     {
       id: 103,
-      webformatURL: svgDataUri("Async", "#d66b3d", "promise"),
-      largeImageURL: svgDataUri("Async", "#d66b3d", "promise"),
+      webformatURL: svgDataUri("Async", "#d66b3d", "promise", "timer"),
+      largeImageURL: svgDataUri("Async", "#d66b3d", "promise", "timer"),
       tags: "async promise fetch",
       likes: 28,
       views: 760,
@@ -137,6 +152,10 @@
       target.textContent = message;
     }
     notify(message);
+  }
+
+  function galleryOutputMessage(description) {
+    return `original: відкрито велике зображення "${description}"`;
   }
 
   function paginateItems(items, page, perPage) {
@@ -198,10 +217,15 @@
     productList.innerHTML = page.items
       .map(
         (product) => `<article class="product-card">
-          <h3>${escapeHtml(product.title)}</h3>
-          <p>${escapeHtml(product.category)}</p>
-          <strong>${product.price} грн</strong>
-          <button type="button" data-add-product="${product.id}">Додати</button>
+          <img class="product-cover" src="${svgDataUri(product.label, product.accent, product.category, product.scene)}" alt="${escapeHtml(product.title)}">
+          <div class="product-body">
+            <p class="product-category">${escapeHtml(product.category)}</p>
+            <h3>${escapeHtml(product.title)}</h3>
+            <div class="product-actions">
+              <strong>${product.price} грн</strong>
+              <button type="button" data-add-product="${product.id}">Додати</button>
+            </div>
+          </div>
         </article>`
       )
       .join("");
@@ -229,9 +253,13 @@
             return "";
           }
           return `<article class="cart-row">
-            <span>${escapeHtml(product.title)} x ${quantity}</span>
+            <img src="${svgDataUri(product.label, product.accent, product.category, product.scene)}" alt="">
+            <span>
+              <b>${escapeHtml(product.title)}</b>
+              <small>${quantity} x ${product.price} грн</small>
+            </span>
             <strong>${product.price * quantity} грн</strong>
-            <button type="button" data-remove-product="${product.id}">x</button>
+            <button type="button" data-remove-product="${product.id}" aria-label="Прибрати ${escapeHtml(product.title)}">×</button>
           </article>`;
         })
         .join("");
@@ -299,7 +327,8 @@
     const image = link.querySelector("img");
     const original = link.href;
     const description = image ? image.alt : "Зображення";
-    writeOutput("gallery-output", `original: ${original}`);
+    console.log(original);
+    writeOutput("gallery-output", galleryOutputMessage(description));
     openGalleryModal(original, description);
   }
 
@@ -609,7 +638,8 @@
 
     const galleryLink = document.querySelector(".lab7-gallery a");
     if (galleryLink) {
-      writeOutput("gallery-output", `original: ${galleryLink.href}`);
+      const image = galleryLink.querySelector("img");
+      writeOutput("gallery-output", galleryOutputMessage(image ? image.alt : "Зображення"));
     }
 
     const form = document.querySelector(".feedback-form");
