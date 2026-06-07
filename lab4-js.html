@@ -31,7 +31,7 @@
         <div>
           <h1 id="lab4-title">Лабораторна робота №4: JavaScript у HTML-документі</h1>
           <p class="lead">
-            На сторінці реалізовано задачі №1-9: prompt(), alert(), switch-case, функції, шаблонні рядки, масиви, методи масивів і валідацію HTML-форми.
+            На сторінці реалізовано задачі №1-9: prompt(), alert(), switch-case, функції, шаблонні рядки, масиви, методи масивів, сортування вибором і слайд-шоу.
           </p>
           <div class="actions">
             <button type="button" id="run-all-lab4">Запустити всі демо</button>
@@ -41,10 +41,10 @@
         <aside class="panel lab4-assumption" aria-labelledby="variant-title">
           <h2 id="variant-title">Варіант виконання</h2>
           <p>
-            Прийнято робоче припущення: непарна колонка для задач №1-6 та №8, варіант 1 для задач №7 і №9.
+            Номер у списку групи: 5. Для задач №1-6 та №8 використано непарну колонку, для задач №7 і №9 виконано варіант 5.
           </p>
           <p>
-            Якщо номер студента у списку інший, достатньо замінити умови задач №7 і №9 та оновити звіт.
+            Уточнення номера зафіксовано після перевірки попередньої реалізації.
           </p>
         </aside>
       </section>
@@ -102,8 +102,12 @@
         </article>
 
         <article class="task-card wide-task" id="task-7-card">
-          <h2>Завдання №7, варіант 1</h2>
-          <p>Створити масив, знайти максимальний серед парних елементів та мінімальний серед елементів з парними індексами, поміняти їх місцями і відсортувати результат методом вставки.</p>
+          <h2>Завдання №7, варіант 5</h2>
+          <p>Визначити максимальне та мінімальне значення серед елементів з парними та непарними номерами, потім упорядкувати масив за спаданням методом вибору.</p>
+          <div class="form-row compact-row">
+            <label for="task-7-numbers">Елементи масиву</label>
+            <input id="task-7-numbers" type="text" value="12, -7, 4, 19, 2, 8, 15, -3">
+          </div>
           <button type="button" data-run-task="7">Демо</button>
           <pre id="task-7-output" class="result-box" aria-live="polite"></pre>
         </article>
@@ -119,35 +123,34 @@
         </article>
       </section>
 
-      <section class="panel" id="task-9-card" aria-labelledby="task-9-title">
-        <h2 id="task-9-title">Завдання №9, варіант 1: валідація HTML-форми</h2>
-        <form class="validation-form" id="registration-form" novalidate>
-          <div class="form-row">
-            <label for="reg-name">Ім'я *</label>
-            <input id="reg-name" name="name" type="text" value="Максим Єрещенко" required>
+      <section class="panel slideshow-lab" id="task-9-card" aria-labelledby="task-9-title">
+        <h2 id="task-9-title">Завдання №9, варіант 5: слайд-шоу</h2>
+        <p>Перегляд зображень за таймером з налаштуванням розміру, циклічним перемиканням та зміною часу між слайдами.</p>
+        <div class="slideshow-layout">
+          <figure class="slideshow-frame">
+            <img id="slideshow-image" src="assets/study-dashboard.svg" alt="StudyTask dashboard illustration">
+            <figcaption>
+              <span id="slideshow-caption">Панель StudyTask</span>
+              <span id="slideshow-counter">1 / 3</span>
+            </figcaption>
+          </figure>
+          <div class="slideshow-controls" aria-label="Керування слайд-шоу">
+            <div class="form-row compact-row">
+              <label for="slideshow-size">Ширина зображення, px</label>
+              <input id="slideshow-size" type="number" min="260" max="760" step="20" value="520">
+            </div>
+            <div class="form-row compact-row">
+              <label for="slideshow-interval">Інтервал, ms</label>
+              <input id="slideshow-interval" type="number" min="500" max="5000" step="100" value="1500">
+            </div>
+            <div class="task-actions">
+              <button type="button" data-slide-direction="-1">Назад</button>
+              <button type="button" data-slide-direction="1">Вперед</button>
+              <button type="button" id="slideshow-start">Старт</button>
+              <button type="button" id="slideshow-stop">Стоп</button>
+            </div>
           </div>
-          <div class="form-row">
-            <label for="reg-age">Ціле число *</label>
-            <input id="reg-age" name="age" type="text" value="21" required>
-          </div>
-          <div class="form-row">
-            <label for="reg-rating">Дійсне число *</label>
-            <input id="reg-rating" name="rating" type="text" value="87.5" required>
-          </div>
-          <div class="form-row">
-            <label for="reg-date">Дата DD.MM.YYYY *</label>
-            <input id="reg-date" name="date" type="text" value="07.06.2026" required>
-          </div>
-          <div class="form-row">
-            <label for="reg-password">Пароль *</label>
-            <input id="reg-password" name="password" type="password" value="Study123" required>
-          </div>
-          <div class="form-row">
-            <label for="reg-confirm">Повтор паролю *</label>
-            <input id="reg-confirm" name="confirm" type="password" value="Study123" required>
-          </div>
-          <button type="submit">Перевірити форму</button>
-        </form>
+        </div>
         <pre id="task-9-output" class="result-box" aria-live="polite"></pre>
       </section>
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Planning board</title>
+  <desc id="desc">A study planning board with columns and task cards.</desc>
+  <rect width="960" height="560" fill="#f4f8f6"/>
+  <rect x="72" y="70" width="816" height="420" rx="22" fill="#ffffff" stroke="#d7e2de"/>
+  <rect x="112" y="120" width="205" height="320" rx="14" fill="#edf5f2"/>
+  <rect x="377" y="120" width="205" height="320" rx="14" fill="#fff6ee"/>
+  <rect x="642" y="120" width="205" height="320" rx="14" fill="#eef3ff"/>
+  <rect x="138" y="164" width="153" height="58" rx="10" fill="#24433c"/>
+  <rect x="138" y="244" width="153" height="58" rx="10" fill="#17775e"/>
+  <rect x="403" y="164" width="153" height="58" rx="10" fill="#d66b3d"/>
+  <rect x="403" y="244" width="153" height="58" rx="10" fill="#24433c"/>
+  <rect x="668" y="164" width="153" height="58" rx="10" fill="#17775e"/>
+  <rect x="668" y="244" width="153" height="58" rx="10" fill="#d66b3d"/>
+  <circle cx="214" cy="368" r="38" fill="#d6ebe5"/>
+  <circle cx="479" cy="368" r="38" fill="#f1c99b"/>
+  <circle cx="744" cy="368" r="38" fill="#d5def5"/>
+</svg>

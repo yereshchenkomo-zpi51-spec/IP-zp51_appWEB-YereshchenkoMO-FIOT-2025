@@ -509,6 +509,66 @@ textarea {
   align-self: end;
 }
 
+.compact-row {
+  margin: 0;
+}
+
+.compact-row label,
+.compact-row input {
+  display: block;
+}
+
+.compact-row label {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.compact-row input {
+  width: 100%;
+}
+
+.slideshow-lab {
+  overflow: visible;
+}
+
+.slideshow-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.44fr);
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+
+.slideshow-frame {
+  margin: 0;
+}
+
+.slideshow-frame img {
+  display: block;
+  width: 520px;
+  max-width: 100%;
+  aspect-ratio: 12 / 7;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.slideshow-frame figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.slideshow-controls {
+  display: grid;
+  gap: 14px;
+}
+
 input[required],
 textarea[placeholder] {
   border-color: var(--brand-2);
@@ -574,6 +634,7 @@ button {
   .selector-board,
   .css-demo-grid,
   .task-grid,
+  .slideshow-layout,
   .validation-form {
     grid-template-columns: 1fr;
   }

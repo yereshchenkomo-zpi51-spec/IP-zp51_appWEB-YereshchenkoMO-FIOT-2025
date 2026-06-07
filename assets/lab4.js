@@ -12,6 +12,29 @@
     [15, -9, 6],
   ];
 
+  const slideshowImages = [
+    {
+      src: "assets/study-dashboard.svg",
+      alt: "StudyTask dashboard illustration",
+      caption: "Панель StudyTask",
+    },
+    {
+      src: "assets/slide-planning.svg",
+      alt: "Planning board illustration",
+      caption: "Планування задач",
+    },
+    {
+      src: "assets/slide-progress.svg",
+      alt: "Progress chart illustration",
+      caption: "Контроль прогресу",
+    },
+  ];
+
+  const slideshowState = {
+    currentIndex: 0,
+    timerId: null,
+  };
+
   function toNumber(value) {
     if (value === null || String(value).trim() === "") {
       return Number.NaN;
@@ -85,63 +108,47 @@
     return filtered;
   }
 
-  function findIndexOfMaxEvenValue(numbers) {
-    let max = -Infinity;
-    let index = -1;
-    numbers.forEach((number, currentIndex) => {
-      if (number % 2 === 0 && number > max) {
-        max = number;
-        index = currentIndex;
-      }
-    });
-    return index;
-  }
-
-  function findIndexOfMinEvenIndex(numbers) {
-    let min = Infinity;
-    let index = -1;
-    numbers.forEach((number, currentIndex) => {
-      if (currentIndex % 2 === 0 && number < min) {
-        min = number;
-        index = currentIndex;
-      }
-    });
-    return index;
-  }
-
-  function insertionSortAscending(numbers) {
+  function selectionSortDescending(numbers) {
     const sorted = [...numbers];
-    for (let i = 1; i < sorted.length; i += 1) {
-      const current = sorted[i];
-      let j = i - 1;
-      while (j >= 0 && sorted[j] > current) {
-        sorted[j + 1] = sorted[j];
-        j -= 1;
+    for (let i = 0; i < sorted.length - 1; i += 1) {
+      let maxIndex = i;
+      for (let j = i + 1; j < sorted.length; j += 1) {
+        if (sorted[j] > sorted[maxIndex]) {
+          maxIndex = j;
+        }
       }
-      sorted[j + 1] = current;
+      if (maxIndex !== i) {
+        [sorted[i], sorted[maxIndex]] = [sorted[maxIndex], sorted[i]];
+      }
     }
     return sorted;
   }
 
-  function processVariantOneArray(numbers) {
-    const source = [...numbers];
-    const swapped = [...numbers];
-    const maxEvenIndex = findIndexOfMaxEvenValue(swapped);
-    const minEvenIndexIndex = findIndexOfMinEvenIndex(swapped);
+  function getPositionStats(numbers, parity) {
+    const filtered = numbers
+      .map((value, index) => ({ value, position: index + 1 }))
+      .filter((item) => item.position % 2 === parity);
 
-    if (maxEvenIndex !== -1 && minEvenIndexIndex !== -1) {
-      [swapped[maxEvenIndex], swapped[minEvenIndexIndex]] = [
-        swapped[minEvenIndexIndex],
-        swapped[maxEvenIndex],
-      ];
+    if (!filtered.length) {
+      return null;
     }
 
+    return filtered.reduce(
+      (stats, item) => ({
+        max: item.value > stats.max.value ? item : stats.max,
+        min: item.value < stats.min.value ? item : stats.min,
+      }),
+      { max: filtered[0], min: filtered[0] }
+    );
+  }
+
+  function processVariantFiveArray(numbers) {
+    const source = [...numbers];
     return {
       source,
-      maxEvenIndex,
-      minEvenIndexIndex,
-      swapped,
-      sorted: insertionSortAscending(swapped),
+      oddPositions: getPositionStats(source, 1),
+      evenPositions: getPositionStats(source, 0),
+      sorted: selectionSortDescending(source),
     };
   }
 
@@ -164,54 +171,30 @@
     };
   }
 
-  function isValidDate(value) {
-    const match = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(value);
-    if (!match) {
-      return false;
-    }
-    const day = Number(match[1]);
-    const month = Number(match[2]);
-    const year = Number(match[3]);
-    const date = new Date(year, month - 1, day);
-    return (
-      date.getFullYear() === year &&
-      date.getMonth() === month - 1 &&
-      date.getDate() === day
-    );
-  }
-
-  function validateRegistrationForm(data) {
-    const errors = [];
-    if (!data.name || !data.name.trim()) {
-      errors.push("Ім'я є обов'язковим полем");
-    }
-    if (!/^-?\d+$/.test(data.age || "")) {
-      errors.push("Ціле число має містити тільки цифри");
-    }
-    if (!/^-?\d+([.,]\d+)?$/.test(data.rating || "")) {
-      errors.push("Дійсне число має бути у форматі 87.5 або 87,5");
-    }
-    if (!isValidDate(data.date || "")) {
-      errors.push("Дата має відповідати формату DD.MM.YYYY і бути реальною датою");
-    }
-    if (!data.password) {
-      errors.push("Пароль є обов'язковим полем");
-    }
-    if (data.password !== data.confirm) {
-      errors.push("Паролі не збігаються");
-    }
-    return {
-      valid: errors.length === 0,
-      errors,
-    };
-  }
-
   function formatArray(numbers) {
     return `[${numbers.join(", ")}]`;
   }
 
   function formatMatrix(matrix) {
     return matrix.map((row) => `[${row.join(", ")}]`).join("\n");
+  }
+
+  function parseNumbersInput(value) {
+    return String(value)
+      .split(/[,\s;]+/)
+      .map((item) => Number(item.trim()))
+      .filter((number) => !Number.isNaN(number));
+  }
+
+  function formatPositionStats(title, stats) {
+    if (!stats) {
+      return `${title}: немає елементів`;
+    }
+    return [
+      `${title}:`,
+      `max = ${stats.max.value}, position = ${stats.max.position}`,
+      `min = ${stats.min.value}, position = ${stats.min.position}`,
+    ].join("\n");
   }
 
   function writeOutput(taskNumber, text) {
@@ -230,6 +213,77 @@
       consoleBox.textContent += `[${timestamp}] ${message}\n`;
       consoleBox.scrollTop = consoleBox.scrollHeight;
     }
+  }
+
+  function renderSlideshow() {
+    const image = document.getElementById("slideshow-image");
+    const caption = document.getElementById("slideshow-caption");
+    const counter = document.getElementById("slideshow-counter");
+    const slide = slideshowImages[slideshowState.currentIndex];
+
+    if (!image || !caption || !counter || !slide) {
+      return;
+    }
+
+    image.src = slide.src;
+    image.alt = slide.alt;
+    caption.textContent = slide.caption;
+    counter.textContent = `${slideshowState.currentIndex + 1} / ${slideshowImages.length}`;
+  }
+
+  function getSlideshowStatusText() {
+    return [
+      "Слайд-шоу ініціалізовано",
+      `images = ${slideshowImages.length}`,
+      `current = ${slideshowImages[slideshowState.currentIndex].caption}`,
+    ].join("\n");
+  }
+
+  function updateSlideshowStatusBox() {
+    const target = document.getElementById("task-9-output");
+    if (target) {
+      target.textContent = getSlideshowStatusText();
+    }
+  }
+
+  function applySlideshowSize() {
+    const image = document.getElementById("slideshow-image");
+    const sizeInput = document.getElementById("slideshow-size");
+    if (!image || !sizeInput) {
+      return;
+    }
+    const size = Number(sizeInput.value);
+    image.style.width = `${Number.isFinite(size) ? size : 520}px`;
+  }
+
+  function changeSlide(direction) {
+    const nextIndex = slideshowState.currentIndex + direction;
+    if (nextIndex < 0) {
+      slideshowState.currentIndex = slideshowImages.length - 1;
+    } else if (nextIndex >= slideshowImages.length) {
+      slideshowState.currentIndex = 0;
+    } else {
+      slideshowState.currentIndex = nextIndex;
+    }
+    renderSlideshow();
+    updateSlideshowStatusBox();
+  }
+
+  function stopSlideshow() {
+    if (slideshowState.timerId) {
+      window.clearInterval(slideshowState.timerId);
+      slideshowState.timerId = null;
+    }
+  }
+
+  function startSlideshow() {
+    const intervalInput = document.getElementById("slideshow-interval");
+    const interval = Number(intervalInput ? intervalInput.value : 1500);
+    stopSlideshow();
+    slideshowState.timerId = window.setInterval(
+      () => changeSlide(1),
+      Math.max(Number.isFinite(interval) ? interval : 1500, 500)
+    );
   }
 
   function runTask(taskNumber) {
@@ -267,15 +321,16 @@
         break;
       }
       case 7: {
-        const result = processVariantOneArray([12, 7, 4, 19, 2, 8, 15]);
+        const input = document.getElementById("task-7-numbers");
+        const numbers = input ? parseNumbersInput(input.value) : [12, -7, 4, 19, 2, 8, 15, -3];
+        const result = processVariantFiveArray(numbers);
         writeOutput(
           7,
           [
             `source = ${formatArray(result.source)}`,
-            `max even index = ${result.maxEvenIndex}`,
-            `min even-index element index = ${result.minEvenIndexIndex}`,
-            `after swap = ${formatArray(result.swapped)}`,
-            `insertion sort = ${formatArray(result.sorted)}`,
+            formatPositionStats("odd positions", result.oddPositions),
+            formatPositionStats("even positions", result.evenPositions),
+            `selection sort descending = ${formatArray(result.sorted)}`,
           ].join("\n")
         );
         break;
@@ -294,13 +349,10 @@
         break;
       }
       case 9: {
-        const form = document.getElementById("registration-form");
-        const data = Object.fromEntries(new FormData(form));
-        const result = validateRegistrationForm(data);
-        const text = result.valid
-          ? "Форма валідна"
-          : `Форма має помилки:\n${result.errors.map((error) => `- ${error}`).join("\n")}`;
-        writeOutput(9, text);
+        applySlideshowSize();
+        renderSlideshow();
+        updateSlideshowStatusBox();
+        logToConsole(`Task 9: ${getSlideshowStatusText().replace(/\n/g, " | ")}`);
         break;
       }
       default:
@@ -362,6 +414,22 @@
     }
   }
 
+  function applyUrlAutomation() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("autorun") !== "1") {
+      return;
+    }
+
+    runAllTasks();
+
+    const slideIndex = Number(params.get("slide"));
+    if (Number.isInteger(slideIndex) && slideIndex >= 1 && slideIndex <= slideshowImages.length) {
+      slideshowState.currentIndex = slideIndex - 1;
+      renderSlideshow();
+      updateSlideshowStatusBox();
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("[data-run-task]").forEach((button) => {
       button.addEventListener("click", () => runTask(button.dataset.runTask));
@@ -376,13 +444,27 @@
       runAllButton.addEventListener("click", runAllTasks);
     }
 
-    const registrationForm = document.getElementById("registration-form");
-    if (registrationForm) {
-      registrationForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        runTask(9);
-      });
+    const slideshowSizeInput = document.getElementById("slideshow-size");
+    if (slideshowSizeInput) {
+      slideshowSizeInput.addEventListener("input", applySlideshowSize);
     }
+
+    const slideshowStartButton = document.getElementById("slideshow-start");
+    if (slideshowStartButton) {
+      slideshowStartButton.addEventListener("click", startSlideshow);
+    }
+
+    const slideshowStopButton = document.getElementById("slideshow-stop");
+    if (slideshowStopButton) {
+      slideshowStopButton.addEventListener("click", stopSlideshow);
+    }
+
+    document.querySelectorAll("[data-slide-direction]").forEach((button) => {
+      button.addEventListener("click", () => changeSlide(Number(button.dataset.slideDirection)));
+    });
+
+    runTask(9);
+    applyUrlAutomation();
   });
 
   window.Lab4 = {
@@ -391,11 +473,10 @@
     classifyNumber,
     filterArray,
     getSeason,
-    insertionSortAscending,
     makeTransaction,
-    processVariantOneArray,
+    processVariantFiveArray,
+    selectionSortDescending,
     splitMatrixNumbers,
-    validateRegistrationForm,
     runTask,
     runAllTasks,
   };

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Progress chart</title>
+  <desc id="desc">A progress dashboard with bars and a line chart.</desc>
+  <rect width="960" height="560" fill="#f7faf9"/>
+  <rect x="78" y="72" width="804" height="416" rx="24" fill="#ffffff" stroke="#d7e2de"/>
+  <rect x="132" y="156" width="96" height="248" rx="12" fill="#24433c"/>
+  <rect x="270" y="214" width="96" height="190" rx="12" fill="#17775e"/>
+  <rect x="408" y="120" width="96" height="284" rx="12" fill="#d66b3d"/>
+  <rect x="546" y="268" width="96" height="136" rx="12" fill="#f3a33b"/>
+  <rect x="684" y="180" width="96" height="224" rx="12" fill="#3d77e8"/>
+  <polyline points="132,388 228,304 366,330 504,188 642,294 780,232" fill="none" stroke="#101c19" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="132" cy="388" r="15" fill="#101c19"/>
+  <circle cx="228" cy="304" r="15" fill="#101c19"/>
+  <circle cx="366" cy="330" r="15" fill="#101c19"/>
+  <circle cx="504" cy="188" r="15" fill="#101c19"/>
+  <circle cx="642" cy="294" r="15" fill="#101c19"/>
+  <circle cx="780" cy="232" r="15" fill="#101c19"/>
+</svg>
