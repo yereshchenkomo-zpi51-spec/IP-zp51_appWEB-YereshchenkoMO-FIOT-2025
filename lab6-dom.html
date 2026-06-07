@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyTask - ЛР №6 DOM і події</title>
+    <meta name="description" content="Лабораторна робота №6: прототипи, класи, DOM, події, об'єкт події та делегування подій.">
+    <link rel="stylesheet" href="style.css">
+    <script src="assets/lab6.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="StudyTask, головна сторінка">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span>
+          <strong>StudyTask</strong>
+          <span>DOM lab 6</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Основна навігація">
+        <a href="index.html">Головна</a>
+        <a href="lab4-js.html">ЛР №4</a>
+        <a href="lab5-js.html">ЛР №5</a>
+        <a href="business-logic.html">Бізнес-логіка</a>
+        <a href="../IP-zp51_appRECORD-YereshchenkoMO-FIOT-2025/index.html#lab6">Звіт ЛР №6</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero lab6-hero" aria-labelledby="lab6-title">
+        <div>
+          <h1 id="lab6-title">Лабораторна робота №6: DOM, події та делегування</h1>
+          <p class="lead">
+            На сторінці реалізовано варіанти 1, 3, 5, 7, 8, 9 і 10 для непарного номера у списку групи, а також окремий приклад делегування подій з модальним вікном.
+          </p>
+          <div class="actions">
+            <button type="button" id="run-all-lab6">Запустити всі демо</button>
+            <a class="button secondary" href="#lab6-console">Переглянути console output</a>
+          </div>
+        </div>
+        <aside class="panel lab6-assumption" aria-labelledby="lab6-variant-title">
+          <h2 id="lab6-variant-title">Варіант виконання</h2>
+          <p>
+            Номер у списку групи: 5. Для непарного номера виконано варіанти 1, 3, 5, 7, 8, 9, 10.
+          </p>
+          <p>
+            Для всіх варіантів підключено загальний файл <code>style.css</code>.
+          </p>
+        </aside>
+      </section>
+
+      <section class="panel" aria-labelledby="delegation-title">
+        <h2 id="delegation-title">Делегування подій: навчальні матеріали StudyTask</h2>
+        <p>
+          Клік по будь-якій картці обробляється одним слухачем на батьківському контейнері. Після вибору відкривається модальне вікно з описом матеріалу.
+        </p>
+        <div class="delegation-list" id="materials-list" aria-label="Колекція навчальних матеріалів">
+          <article class="material-card" data-material-id="html">
+            <h3>HTML-конспект</h3>
+            <p>Семантика, таблиці, форми та структура сторінки.</p>
+            <button type="button" data-material-id="html">Опис</button>
+          </article>
+          <article class="material-card" data-material-id="css">
+            <h3>CSS-шпаргалка</h3>
+            <p>Селектори, каскадність, адаптивні сітки й стани.</p>
+            <button type="button" data-material-id="css">Опис</button>
+          </article>
+          <article class="material-card" data-material-id="dom">
+            <h3>DOM-практикум</h3>
+            <p>Події, форми, об'єкт події та делегування.</p>
+            <button type="button" data-material-id="dom">Опис</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel task-grid lab6-task-grid" aria-label="Завдання лабораторної роботи №6">
+        <article class="task-card" id="task-1-card">
+          <h2>Варіант 1</h2>
+          <p>Кнопка "SHOW ME" виводить значення з поля введення у console.</p>
+          <div class="form-row compact-row">
+            <label for="task-1-input">Текст для виведення</label>
+            <input id="task-1-input" type="text" value="StudyTask DOM">
+          </div>
+          <button type="button" id="show-me-button">SHOW ME</button>
+          <pre id="task-1-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article class="task-card" id="task-3-card">
+          <h2>Варіант 3</h2>
+          <p>Кнопка приховує введений текст зірочками та повторним кліком розкриває його.</p>
+          <div class="form-row compact-row">
+            <label for="task-3-input">Текст</label>
+            <input id="task-3-input" type="text" value="client-side events">
+          </div>
+          <button type="button" id="toggle-secret-button">Приховати</button>
+          <p id="secret-preview" class="inline-result" aria-live="polite">client-side events</p>
+        </article>
+
+        <article class="task-card" id="task-5-card">
+          <h2>Варіант 5</h2>
+          <p class="taskTitle">Клік у зеленому прямокутнику має повернути <code>true</code>, клік поза ним - <code>false</code>.</p>
+          <div id="place" class="click-place" aria-label="Зелений прямокутник для перевірки кліку">#place</div>
+          <pre id="task-5-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article class="task-card" id="task-7-card">
+          <h2>Варіант 7</h2>
+          <p>Скрипт рахує категорії в <code>ul#categories</code> і кількість вкладених елементів.</p>
+          <ul id="categories" class="categories-list">
+            <li class="item">
+              <h3>Animals</h3>
+              <ul>
+                <li>Cat</li>
+                <li>Hamster</li>
+                <li>Horse</li>
+                <li>Parrot</li>
+              </ul>
+            </li>
+            <li class="item">
+              <h3>Products</h3>
+              <ul>
+                <li>Bread</li>
+                <li>Prasley</li>
+                <li>Cheese</li>
+              </ul>
+            </li>
+            <li class="item">
+              <h3>Technologies</h3>
+              <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+              </ul>
+            </li>
+          </ul>
+          <button type="button" id="analyze-categories-button">Порахувати категорії</button>
+          <pre id="task-7-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article class="task-card" id="task-8-card">
+          <h2>Варіант 8</h2>
+          <p>Форма логіна перевіряється через JavaScript без атрибутів <code>required</code>.</p>
+          <form class="login-form lab6-login-form" action="#" method="post">
+            <label>
+              Email
+              <input type="email" name="email">
+            </label>
+            <label>
+              Password
+              <input type="password" name="password">
+            </label>
+            <button type="submit">Log in</button>
+          </form>
+          <pre id="task-8-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article class="task-card" id="task-9-card">
+          <h2>Варіант 9</h2>
+          <p>Кнопка змінює фон <code>body</code> і записує hex-колір у <code>span.color</code>.</p>
+          <div class="widget">
+            <p>Background color: <span class="color">-</span></p>
+            <button type="button" class="change-color">Change color</button>
+          </div>
+          <pre id="task-9-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article class="task-card wide-task" id="task-10-card">
+          <h2>Варіант 10</h2>
+          <p>Створення та очищення колекції блоків: перший 30x30 px, кожний наступний більший на 10 px.</p>
+          <div id="controls" class="controls-panel">
+            <label for="boxes-amount">Кількість блоків</label>
+            <input id="boxes-amount" type="number" min="1" max="100" step="1" value="5">
+            <button type="button" data-create>Create</button>
+            <button type="button" data-destroy>Destroy</button>
+          </div>
+          <div id="boxes" class="boxes-grid" aria-label="Створені блоки"></div>
+          <pre id="task-10-output" class="result-box" aria-live="polite"></pre>
+        </article>
+      </section>
+
+      <section class="panel" aria-labelledby="lab6-console-title">
+        <h2 id="lab6-console-title">Console output</h2>
+        <p>Результати інтерактивних задач дублюються у браузерну console і в цей блок для фіксації у звіті.</p>
+        <pre id="lab6-console" class="console-box" aria-live="polite"></pre>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="material-modal" hidden>
+      <div class="modal-window" role="dialog" aria-labelledby="modal-title">
+        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">x</button>
+        <h2 id="modal-title">Опис матеріалу</h2>
+        <p id="modal-description"></p>
+        <p id="modal-meta" class="modal-meta"></p>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Лабораторна робота №6. Виконав: Єрещенко М.О., група ІП-зп51.</p>
+    </footer>
+  </body>
+</html>
