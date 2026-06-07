@@ -37,6 +37,13 @@ a {
   box-shadow: 0 22px 52px rgba(31, 39, 36, 0.14);
 }
 
+.resume-page aside,
+.resume-page section,
+.resume-page article,
+.resume-page header {
+  margin: 0;
+}
+
 .resume-sidebar {
   padding: 30px 24px;
   color: #ffffff;
@@ -161,8 +168,8 @@ h1 {
 @media (max-width: 760px) {
   .resume-page {
     grid-template-columns: 1fr;
-    margin: 0;
-    width: 100%;
+    width: min(100%, calc(100% - 24px));
+    margin: 16px auto;
     min-height: 100vh;
   }
 

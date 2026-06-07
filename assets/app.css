@@ -100,6 +100,12 @@ textarea:focus {
   color: var(--brand-2);
 }
 
+.site-nav a.is-active {
+  color: var(--brand-2);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
 main {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
