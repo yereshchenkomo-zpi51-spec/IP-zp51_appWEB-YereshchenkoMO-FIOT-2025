@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyTask - ЛР №7 Web Storage і асинхронність</title>
+    <meta name="description" content="Лабораторна робота №7: Web Storage API, асинхронність, проміси, HTTP-запити, REST API, AJAX, пагінація і CRUD.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.min.js" defer></script>
+    <script src="assets/lab7.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="StudyTask, головна сторінка">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span>
+          <strong>StudyTask</strong>
+          <span>Storage lab 7</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Основна навігація">
+        <a href="index.html">Головна</a>
+        <a href="lab4-js.html">ЛР №4</a>
+        <a href="lab5-js.html">ЛР №5</a>
+        <a href="lab6-dom.html">ЛР №6</a>
+        <a href="business-logic.html">Бізнес-логіка</a>
+        <a href="../IP-zp51_appRECORD-YereshchenkoMO-FIOT-2025/index.html#lab7">Звіт ЛР №7</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero lab7-hero" aria-labelledby="lab7-title">
+        <div>
+          <h1 id="lab7-title">Лабораторна робота №7: Web Storage, проміси і пагінація</h1>
+          <p class="lead">
+            На сторінці реалізовано кошик із пагінацією, галерею з модальним переглядом, форму з localStorage, таймер зворотного відліку, генератор промісів і пошук зображень через Fetch API.
+          </p>
+          <div class="actions">
+            <button type="button" id="run-all-lab7">Запустити контрольний сценарій</button>
+            <a class="button secondary" href="#lab7-console">Console output</a>
+          </div>
+        </div>
+        <aside class="panel lab7-assumption" aria-labelledby="lab7-source-title">
+          <h2 id="lab7-source-title">Джерело завдання</h2>
+          <p>
+            Файл завдання має назву ЛР №7, але внутрішній заголовок документа містить "ЛАБОРАТОРНА РОБОТА №8". У звіті робота оформлена як ЛР №7 відповідно до послідовності курсу.
+          </p>
+          <p>
+            Для Pixabay передбачено поле API key. Без ключа пошук працює на локальному демо-наборі, щоб сторінка залишалась перевірюваною.
+          </p>
+        </aside>
+      </section>
+
+      <section class="panel lab7-cart-section" aria-labelledby="cart-title">
+        <h2 id="cart-title">Завдання №1: кошик і пагінація</h2>
+        <p>Каталог навчальних товарів розбитий на сторінки. Кошик зберігається у localStorage і підтримує додавання, видалення та очищення позицій.</p>
+        <div class="lab7-cart-layout">
+          <div>
+            <div id="product-list" class="product-list" aria-live="polite"></div>
+            <div class="pagination-controls" aria-label="Пагінація каталогу">
+              <button type="button" data-products-prev>Назад</button>
+              <span id="products-page-label" class="page-label">1 / 1</span>
+              <button type="button" data-products-next>Вперед</button>
+            </div>
+          </div>
+          <aside class="cart-panel" aria-labelledby="cart-panel-title">
+            <h3 id="cart-panel-title">Кошик</h3>
+            <div id="cart-list" class="cart-list" aria-live="polite"></div>
+            <p id="cart-total" class="cart-total">Разом: 0 грн</p>
+            <button type="button" id="clear-cart">Очистити кошик</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="gallery-title">
+        <h2 id="gallery-title">Завдання №2: галерея зображень і basicLightbox</h2>
+        <p>
+          Розмітка галереї створюється з масиву <code>images</code>. Клік обробляється делегуванням на <code>ul.gallery</code>; модальне вікно відкриває велике зображення через basicLightbox або локальний fallback.
+        </p>
+        <ul class="gallery lab7-gallery" aria-label="Галерея навчальних зображень"></ul>
+        <pre id="gallery-output" class="result-box" aria-live="polite"></pre>
+      </section>
+
+      <section class="panel lab7-two-columns" aria-label="Форма і таймер">
+        <article id="feedback-task" class="lab7-subpanel">
+          <h2>Завдання №2: форма зворотного зв'язку</h2>
+          <p>Дані форми зберігаються у localStorage під ключем <code>feedback-form-state</code> і відновлюються після перезавантаження.</p>
+          <form class="feedback-form" autocomplete="off">
+            <label>
+              Email
+              <input type="email" name="email" autofocus>
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="8"></textarea>
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+          <pre id="feedback-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article id="timer-task" class="lab7-subpanel">
+          <h2>Завдання №3: таймер зворотного відліку</h2>
+          <p>Дата обирається через flatpickr, кнопка Start активується лише для майбутньої дати.</p>
+          <div class="timer-controls">
+            <label for="datetime-picker">Кінцева дата і час</label>
+            <input type="text" id="datetime-picker" placeholder="Оберіть дату">
+            <button type="button" data-start disabled>Start</button>
+          </div>
+          <div class="timer" aria-label="Таймер зворотного відліку">
+            <div class="field">
+              <span class="value" data-days>00</span>
+              <span class="label">Days</span>
+            </div>
+            <div class="field">
+              <span class="value" data-hours>00</span>
+              <span class="label">Hours</span>
+            </div>
+            <div class="field">
+              <span class="value" data-minutes>00</span>
+              <span class="label">Minutes</span>
+            </div>
+            <div class="field">
+              <span class="value" data-seconds>00</span>
+              <span class="label">Seconds</span>
+            </div>
+          </div>
+          <pre id="timer-output" class="result-box" aria-live="polite"></pre>
+        </article>
+      </section>
+
+      <section class="panel lab7-two-columns" aria-label="Проміси і пошук зображень">
+        <article id="promise-task" class="lab7-subpanel">
+          <h2>Завдання №4: генератор промісів</h2>
+          <p>Форма створює проміс, який виконується або відхиляється після заданої затримки.</p>
+          <form class="promise-form form">
+            <label>
+              Delay (ms)
+              <input type="number" name="delay" min="1" value="300" required>
+            </label>
+            <fieldset>
+              <legend>State</legend>
+              <label>
+                <input type="radio" name="state" value="fulfilled" checked required>
+                Fulfilled
+              </label>
+              <label>
+                <input type="radio" name="state" value="rejected" required>
+                Rejected
+              </label>
+            </fieldset>
+            <button type="submit">Create notification</button>
+          </form>
+          <pre id="promise-output" class="result-box" aria-live="polite"></pre>
+        </article>
+
+        <article id="search-task" class="lab7-subpanel search-panel">
+          <h2>Завдання №5: пошук зображень</h2>
+          <p>Пошук підтримує Pixabay API. Якщо ключ не введений, використовується локальний демо-набір з таким самим форматом даних.</p>
+          <form class="search-form">
+            <label>
+              Pixabay API key
+              <input type="text" name="apiKey" placeholder="необов'язково для демо">
+            </label>
+            <label>
+              Search query
+              <input type="text" name="query" value="study" placeholder="Наприклад: study">
+            </label>
+            <button type="submit">Search</button>
+          </form>
+          <div class="loader" hidden aria-live="polite">Loading...</div>
+          <div class="search-meta" id="search-meta" aria-live="polite"></div>
+          <ul class="image-results" aria-label="Результати пошуку"></ul>
+        </article>
+      </section>
+
+      <section class="panel" aria-labelledby="lab7-console-title">
+        <h2 id="lab7-console-title">Console output</h2>
+        <p>Контрольний сценарій дублює ключові результати в цей блок для фіксації у звіті.</p>
+        <pre id="lab7-console" class="console-box" aria-live="polite"></pre>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="lab7-fallback-modal" hidden>
+      <div class="modal-window lab7-modal-window" role="dialog" aria-labelledby="lab7-modal-title">
+        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">x</button>
+        <h2 id="lab7-modal-title">Перегляд зображення</h2>
+        <img id="lab7-modal-image" src="assets/study-dashboard.svg" alt="">
+        <p id="lab7-modal-caption" class="modal-meta"></p>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Лабораторна робота №7. Виконав: Єрещенко М.О., група ІП-зп51.</p>
+    </footer>
+  </body>
+</html>

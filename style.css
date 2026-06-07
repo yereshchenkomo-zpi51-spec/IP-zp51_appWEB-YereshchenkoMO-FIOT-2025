@@ -180,10 +180,277 @@
   text-transform: uppercase;
 }
 
+.lab7-hero {
+  min-height: auto;
+  padding-top: 54px;
+}
+
+.lab7-assumption {
+  align-self: stretch;
+}
+
+.lab7-cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.38fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.product-list,
+.gallery,
+.image-results {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 0;
+  margin: 18px 0;
+  list-style: none;
+}
+
+.product-card,
+.cart-panel,
+.gallery-item,
+.image-card,
+.lab7-subpanel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7fbf9;
+}
+
+.product-card {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.product-card h3,
+.product-card p {
+  margin: 0;
+}
+
+.product-card p {
+  color: var(--muted);
+}
+
+.pagination-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-label,
+.cart-total {
+  font-weight: 700;
+}
+
+.cart-panel {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+}
+
+.cart-panel h3,
+.cart-total {
+  margin: 0;
+}
+
+.cart-list {
+  display: grid;
+  gap: 10px;
+}
+
+.cart-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.cart-row button {
+  width: 36px;
+  min-height: 34px;
+  padding: 0;
+}
+
+.gallery-item,
+.image-card {
+  overflow: hidden;
+}
+
+.gallery-item img,
+.image-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eef5f2;
+}
+
+.gallery-item p {
+  margin: 0;
+  padding: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.basicLightbox {
+  background: rgba(19, 43, 37, 0.78);
+  z-index: 80;
+}
+
+.basic-gallery-modal {
+  margin: 0;
+  padding: 16px;
+  background: #142b25;
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  color: #ffffff;
+}
+
+.basic-gallery-modal img {
+  display: block;
+  max-width: min(900px, 92vw);
+  max-height: 76vh;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.basic-gallery-modal figcaption {
+  margin-top: 10px;
+}
+
+.lab7-two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.lab7-subpanel {
+  padding: 20px;
+  background: var(--surface);
+}
+
+.feedback-form,
+.promise-form,
+.search-form,
+.timer-controls {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.promise-form fieldset {
+  display: grid;
+  gap: 8px;
+}
+
+.promise-form fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.promise-form input[type="radio"] {
+  width: 18px;
+  min-height: 18px;
+}
+
+.timer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.timer .field {
+  display: grid;
+  gap: 4px;
+  place-items: center;
+  min-height: 96px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7fbf9;
+}
+
+.timer .value {
+  color: var(--brand);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.timer .label {
+  color: var(--muted);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.loader {
+  width: fit-content;
+  margin: 12px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--brand);
+  font-weight: 700;
+}
+
+.search-meta {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.image-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 12px;
+}
+
+.image-card div {
+  min-width: 0;
+}
+
+.image-card dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.image-card dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.lab7-modal-window img {
+  display: block;
+  width: 100%;
+  max-height: 62vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
 @media (max-width: 900px) {
   .lab6-task-grid,
+  .lab7-cart-layout,
+  .lab7-two-columns,
   .delegation-list,
   .controls-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .product-list,
+  .gallery,
+  .image-results,
+  .timer {
     grid-template-columns: 1fr;
   }
 
