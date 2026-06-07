@@ -1,0 +1,172 @@
+:root {
+  --paper: #fbfbf8;
+  --ink: #1f2724;
+  --muted: #6a746f;
+  --line: #d6ded9;
+  --green: #24433c;
+  --accent: #c75f38;
+  --soft: #eef5f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: #e9efec;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+
+.resume-page {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  width: min(980px, calc(100% - 32px));
+  min-height: calc(100vh - 48px);
+  margin: 24px auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 22px 52px rgba(31, 39, 36, 0.14);
+}
+
+.resume-sidebar {
+  padding: 30px 24px;
+  color: #ffffff;
+  background: var(--green);
+}
+
+.photo-box {
+  display: grid;
+  place-items: center;
+  width: 156px;
+  aspect-ratio: 1;
+  margin-bottom: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 29px;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.role {
+  margin-bottom: 28px;
+  color: #d8e8e3;
+  font-weight: 700;
+}
+
+.resume-sidebar section + section {
+  margin-top: 28px;
+}
+
+.resume-sidebar h2 {
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.plain-list,
+.skill-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.plain-list li + li,
+.skill-list li + li {
+  margin-top: 10px;
+}
+
+.skill-list li {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.resume-content {
+  padding: clamp(28px, 5vw, 54px);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.resume-header {
+  padding-bottom: 26px;
+  border-bottom: 3px solid var(--green);
+}
+
+.resume-header h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.04;
+}
+
+.resume-header p:last-child,
+.resume-section p {
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.resume-section {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.resume-section h3 {
+  color: var(--green);
+  font-size: 22px;
+}
+
+.project-list {
+  display: grid;
+  gap: 14px;
+  padding-left: 22px;
+}
+
+.project-list li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.project-list strong,
+.project-list span {
+  display: block;
+}
+
+.project-list span {
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .resume-page {
+    grid-template-columns: 1fr;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .photo-box {
+    width: 128px;
+  }
+}
