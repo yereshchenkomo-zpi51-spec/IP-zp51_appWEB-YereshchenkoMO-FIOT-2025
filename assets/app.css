@@ -414,6 +414,90 @@ textarea {
   background: #eef8f4;
 }
 
+.lab4-hero {
+  min-height: auto;
+  padding-top: 54px;
+}
+
+.lab4-assumption {
+  align-self: stretch;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.task-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 330px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.task-card h2 {
+  margin: 0;
+  color: var(--brand);
+  font-size: 22px;
+}
+
+.task-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.wide-task {
+  grid-column: span 3;
+}
+
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.result-box,
+.console-box {
+  overflow: auto;
+  min-height: 118px;
+  max-height: 360px;
+  margin: 0;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd8d4;
+  background: #101c19;
+  color: #dff3ec;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.console-box {
+  min-height: 260px;
+}
+
+.validation-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.validation-form button {
+  align-self: end;
+}
+
 input[required],
 textarea[placeholder] {
   border-color: var(--brand-2);
@@ -477,8 +561,14 @@ button {
   .content-grid,
   .list-columns,
   .selector-board,
-  .css-demo-grid {
+  .css-demo-grid,
+  .task-grid,
+  .validation-form {
     grid-template-columns: 1fr;
+  }
+
+  .wide-task {
+    grid-column: auto;
   }
 
   .site-header {
