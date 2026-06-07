@@ -19,8 +19,10 @@
       <nav class="site-nav" aria-label="Основна навігація">
         <a href="#schedule">Розклад</a>
         <a href="#features">Можливості</a>
+        <a href="#css-showcase">CSS</a>
         <a href="#request">Додати завдання</a>
         <a href="business-logic.html">Бізнес-логіка</a>
+        <a href="../IP-zp51_resume-YereshchenkoMO-FIOT-2025/index.html">Резюме</a>
       </nav>
     </header>
 
@@ -137,6 +139,76 @@
         </div>
       </section>
 
+      <section id="css-showcase" class="panel css-lab-panel" aria-labelledby="css-title">
+        <h2 id="css-title">CSS у StudyTask</h2>
+        <p class="lead css-lead">
+          Цей блок демонструє стильове оформлення елементів за допомогою селекторів тегу, класу, ідентифікатора та комбінованих CSS-селекторів.
+        </p>
+
+        <div class="selector-board">
+          <article class="selector-card">
+            <h3>Селектор тегу</h3>
+            <p>Теги <code>h2</code>, <code>p</code> і <code>table</code> отримують базові шрифти, колір, відступи й читабельну структуру.</p>
+          </article>
+          <article class="selector-card accent-card">
+            <h3>Селектор класу</h3>
+            <p>Класи <code>.selector-card</code>, <code>.accent-card</code> і <code>.tag</code> створюють повторювані компоненти інтерфейсу.</p>
+          </article>
+          <article class="selector-card" data-state="active">
+            <h3>Селектор атрибута</h3>
+            <p>Елемент з <code>data-state="active"</code> отримує окремий контур і фон без додаткового класу.</p>
+          </article>
+        </div>
+
+        <div class="css-demo-grid">
+          <article>
+            <h3>Багаторівневий список</h3>
+            <ul class="layered-list">
+              <li>
+                Навчальний тиждень
+                <ul>
+                  <li>ЛР №1: HTML-структура</li>
+                  <li>ЛР №2: CSS-селектори</li>
+                </ul>
+              </li>
+              <li>
+                Перевірка
+                <ul>
+                  <li>HTML-валідність</li>
+                  <li>адаптивність інтерфейсу</li>
+                </ul>
+              </li>
+            </ul>
+          </article>
+
+          <article>
+            <h3>Оформлена CSS-таблиця</h3>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th scope="col">Селектор</th>
+                  <th scope="col">Приклад</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Тег</td>
+                  <td><code>h2</code></td>
+                </tr>
+                <tr>
+                  <td>Клас</td>
+                  <td><code>.selector-card</code></td>
+                </tr>
+                <tr>
+                  <td>ID</td>
+                  <td><code>#css-showcase</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+
       <section id="request" class="panel" aria-labelledby="request-title">
         <h2 id="request-title">Форма додавання навчального завдання</h2>
         <form class="task-form" action="#" method="post">
@@ -183,7 +255,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>Лабораторна робота №1. Виконав: Єрещенко М.О., група ІП-зп51.</p>
+      <p>Лабораторні роботи №1-2. Виконав: Єрещенко М.О., група ІП-зп51.</p>
     </footer>
   </body>
 </html>
